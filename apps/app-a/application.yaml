@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOU/gitops-local
+    repoURL: https://github.com/naestia/argocd
     targetRevision: HEAD
     path: apps/app-a/manifests
   destination:
