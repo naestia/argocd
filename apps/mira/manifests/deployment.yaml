@@ -18,7 +18,7 @@ spec:
       containers:
       - name: mira
         # TODO: Replace with your Next.js image (e.g., ghcr.io/youruser/mira:latest)
-        image: ghcr.io/naestia/mira:sha-e6b5e97
+        image: ghcr.io/naestia/mira:latest
         ports:
         - containerPort: 3000
         env:
