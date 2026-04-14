@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/yourusername/risks:latest
+        image: ghcr.io/naestia/risks:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
