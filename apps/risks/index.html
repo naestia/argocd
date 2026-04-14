@@ -81,7 +81,7 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--tex
 </style>
 
 <div class="header">
-  <div class="label">ISO 27001 — Risk Register</div>
+  <div class="label">ISO 27001 - Risk Register</div>
   <h1>Consolidated Risk Register</h1>
   <p>Click any risk to expand original items and assigned owners. Filter by category using the controls below.</p>
 </div>
@@ -208,7 +208,7 @@ const risks=[
     {id:"R-19",text:"Miscommunication during data sharing between parties.",owner:"Anton"},
   ]},
   {id:"CR-8",cat:"human",catLabel:"Human & organisational",stepClass:"c-human",
-   title:"Human risk — threats, awareness, and personnel security",
+   title:"Human risk - threats, awareness, and personnel security",
    desc:"Inadequate security training, social engineering attacks, BYOD risks, poor onboarding/offboarding, and insider threats present significant human-layer vulnerabilities.",
    suggestedOwner:"Johan",annex:["A 6.1","A 6.3","A 6.4","A 6.5","A 6.8"],
    originals:[
@@ -227,7 +227,7 @@ const risks=[
   ]},
   {id:"CR-9",cat:"third",catLabel:"Third-party & supplier",stepClass:"c-third",
    title:"Inadequate third-party, supplier, and subcontractor risk management",
-   desc:"Insufficient vetting, monitoring, and contractual controls over third parties and subcontractors — including uncertified cloud providers — may introduce compliance gaps and unaccountable access to sensitive systems.",
+   desc:"Insufficient vetting, monitoring, and contractual controls over third parties and subcontractors - including uncertified cloud providers - may introduce compliance gaps and unaccountable access to sensitive systems.",
    suggestedOwner:"Johan",annex:["A 5.19","A 5.20","A 5.21","A 5.22"],
    originals:[
     {id:"R-9",text:"Lack of control over third-party infrastructure or SLAs.",owner:"Johan"},
@@ -283,7 +283,7 @@ const risks=[
     {id:"R-120",text:"Inadequate fire detection and suppression systems.",owner:"Andreas"},
   ]},
   {id:"CR-12",cat:"ops",catLabel:"Operational security",stepClass:"c-ops",
-   title:"Operational security gaps — audits, consent, and malware defence",
+   title:"Operational security gaps - audits, consent, and malware defence",
    desc:"Weak operational practices including inadequate auditing, failure to manage cookie/consent compliance, poor threat intelligence engagement, and absence of malware controls create exploitable gaps.",
    suggestedOwner:"Unassigned",annex:["A 5.7","A 8.7","A 8.19"],
    originals:[
@@ -338,7 +338,7 @@ function renderRisks(data){
       </div>
       <div class="section-body">
         <div class="owner-row">
-          <span class="owner-lbl">Suggested owner —</span>
+          <span class="owner-lbl">Suggested owner -</span>
           <span class="owner-val ov-${r.suggestedOwner}">${r.suggestedOwner}</span>
           <span style="flex:1"></span>
           <div class="annex-row">${annexHtml}</div>
