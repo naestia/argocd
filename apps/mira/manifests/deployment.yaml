@@ -23,6 +23,13 @@ spec:
         ports:
         - containerPort: 3000
         env:
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mira-secrets
+              key: NEXTAUTH_SECRET
+        - name: NEXTAUTH_URL
+          value: "http://localhost:3000"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
