@@ -1,0 +1,375 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+:root{
+  --bg:#0a0e14;--bg2:#0f1520;--bg3:#141c2b;
+  --border:#1e2d45;--border-bright:#2a4060;
+  --text:#c8d8e8;--text-dim:#5a7a9a;--text-muted:#3a5070;
+  --blue:#4d9fff;--blue-dim:#1a3a5c;
+  --green:#3ddc84;--green-dim:#0d2e1c;
+  --orange:#ff9f43;--orange-dim:#2e1a00;
+  --purple:#a78bfa;--purple-dim:#1e1040;
+  --red:#ff6b6b;--red-dim:#2e0f0f;
+  --teal:#38d9d9;--teal-dim:#0a2020;
+  --yellow:#f7c948;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px;line-height:1.6;}
+.header{max-width:900px;margin:0 auto 40px;border-left:3px solid var(--blue);padding-left:20px;}
+.header .label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--blue);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;}
+.header h1{font-size:1.5rem;font-weight:600;color:#e8f4ff;line-height:1.2;margin-bottom:8px;}
+.header p{font-size:0.83rem;color:var(--text-dim);max-width:560px;}
+.content{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+.stat-num{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:#e8f4ff;}
+.stat-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.filter-btn{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border-bright);background:transparent;border-radius:4px;padding:4px 10px;cursor:pointer;color:var(--text-dim);transition:all 0.15s;}
+.filter-btn:hover{color:var(--text);border-color:var(--blue);}
+.filter-btn.active{background:var(--blue-dim);color:var(--blue);border-color:var(--blue);}
+.section{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg2);}
+.section-header{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg3);cursor:pointer;user-select:none;}
+.section-header:hover{background:#18233a;}
+.step-num{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;font-weight:600;color:var(--bg);border-radius:4px;padding:2px 8px;letter-spacing:0.05em;white-space:nowrap;}
+.c-network{background:var(--blue);}
+.c-vuln{background:var(--purple);}
+.c-incident{background:var(--orange);}
+.c-monitoring{background:var(--teal);}
+.c-access{background:var(--purple);}
+.c-data{background:var(--green);}
+.c-comms{background:var(--orange);}
+.c-human{background:var(--red);}
+.c-third{background:var(--blue);}
+.c-governance{background:var(--green);}
+.c-physical{background:#888;}
+.c-ops{background:var(--yellow);}
+.section-header h2{font-size:0.9rem;font-weight:600;color:#e8f4ff;flex:1;}
+.header-meta{display:flex;align-items:center;gap:8px;}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:20px;border:1px solid var(--border-bright);color:var(--text-dim);}
+.count-pill{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:20px;border:1px solid var(--border-bright);color:var(--text-muted);}
+.chevron{font-size:16px;color:var(--text-muted);transition:transform 0.2s;line-height:1;}
+.chevron.open{transform:rotate(90deg);}
+.section-body{display:none;padding:16px 18px;flex-direction:column;gap:10px;border-top:1px solid var(--border);}
+.section-body.open{display:flex;}
+.owner-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;}
+.owner-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;}
+.owner-val{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:600;}
+.ov-Viktor{color:var(--blue);}
+.ov-Johan{color:var(--green);}
+.ov-Andreas{color:var(--orange);}
+.ov-Anton{color:var(--purple);}
+.ov-William{color:var(--teal);}
+.ov-Unassigned{color:var(--text-muted);}
+.annex-row{display:flex;gap:6px;flex-wrap:wrap;}
+.annex-tag{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:2px 7px;border-radius:4px;background:var(--bg3);border:1px solid var(--border-bright);color:var(--text-dim);}
+.originals-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.orig-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.orig-table th{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:6px 10px;border-bottom:1px solid var(--border);background:var(--bg3);}
+.orig-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top;}
+.orig-table tr:last-child td{border-bottom:none;}
+.orig-table tr:hover td{background:var(--bg3);}
+.orig-table td:first-child{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--text-muted);white-space:nowrap;}
+.orig-table td:last-child{white-space:nowrap;}
+.owner-chip{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;padding:2px 8px;border-radius:10px;border:1px solid;}
+.chip-Viktor{background:var(--blue-dim);color:var(--blue);border-color:#1a4a7c;}
+.chip-Johan{background:var(--green-dim);color:var(--green);border-color:#1a5c38;}
+.chip-Andreas{background:var(--orange-dim);color:var(--orange);border-color:#5c3000;}
+.chip-Anton{background:var(--purple-dim);color:var(--purple);border-color:#3a2080;}
+.chip-William{background:var(--teal-dim);color:var(--teal);border-color:#0a4040;}
+.chip-Unassigned{background:var(--bg3);color:var(--text-muted);border-color:var(--border);}
+</style>
+
+<div class="header">
+  <div class="label">ISO 27001 — Risk Register</div>
+  <h1>Consolidated Risk Register</h1>
+  <p>Click any risk to expand original items and assigned owners. Filter by category using the controls below.</p>
+</div>
+
+<div class="content">
+  <div class="stats-row" id="stats-row"></div>
+  <div class="filter-bar" id="filter-bar"></div>
+  <div id="risk-list"></div>
+</div>
+
+<script>
+const risks=[
+  {id:"CR-1",cat:"network",catLabel:"Network security",stepClass:"c-network",
+   title:"Inadequate network and infrastructure security controls",
+   desc:"Insufficient protection across network infrastructure including perimeter defences, Wi-Fi, VPNs, cloud environments, server rooms, and environment segregation.",
+   suggestedOwner:"Viktor",annex:["A 8.20","A 8.21","A 8.22"],
+   originals:[
+    {id:"R-111",text:"Risk of insecure network configurations leading to unauthorized access.",owner:"Viktor"},
+    {id:"R-112",text:"Failure to secure network perimeter (e.g., firewalls, IDS) against DDoS and other attacks.",owner:"Viktor"},
+    {id:"R-113",text:"Insecure Wi-Fi networks increasing exposure to unauthorized access.",owner:"Viktor"},
+    {id:"R-35",text:"Misconfigured VPNs allowing insecure remote access.",owner:"Viktor"},
+    {id:"R-36",text:"Failure to secure cloud environments properly (e.g., AWS, Azure).",owner:"Viktor"},
+    {id:"R-37",text:"Failure to secure server rooms or critical infrastructure.",owner:"Viktor"},
+    {id:"R-108",text:"Failure to secure cloud-based messaging platforms.",owner:"Viktor"},
+    {id:"R-109",text:"Risk of exposure if environments are not properly segregated.",owner:"Viktor"},
+    {id:"R-75",text:"Insecure API endpoints leading to unauthorized access.",owner:"Viktor"},
+  ]},
+  {id:"CR-2",cat:"vuln",catLabel:"Vulnerability management",stepClass:"c-vuln",
+   title:"Insufficient vulnerability, patch, and secure development practices",
+   desc:"Absence of formal vulnerability resolution procedures, inadequate code reviews, insecure SDLC practices, and unvetted third-party libraries increase exploitation risk.",
+   suggestedOwner:"Viktor",annex:["A 8.8","A 8.25","A 8.29"],
+   originals:[
+    {id:"R-110",text:"Risk of unpatched vulnerabilities if there is no formal vulnerability resolution procedure.",owner:"Viktor"},
+    {id:"R-125",text:"Inadequate security testing of acquired systems or software.",owner:"Viktor"},
+    {id:"R-12",text:"Inadequate code reviews, leading to vulnerabilities.",owner:"Viktor"},
+    {id:"R-31",text:"Risk of undiscovered vulnerabilities in internal systems.",owner:"Viktor"},
+    {id:"R-32",text:"Failure to follow secure SDLC practices.",owner:"Viktor"},
+    {id:"R-33",text:"Use of unvetted third-party libraries or dependencies.",owner:"Viktor"},
+    {id:"R-6",text:"Failure to document system configurations leading to delays or inability to solve security compromises.",owner:"Viktor"},
+  ]},
+  {id:"CR-3",cat:"incident",catLabel:"Incident management",stepClass:"c-incident",
+   title:"Inadequate incident detection, response, and recovery capabilities",
+   desc:"Without formal incident response plans, real-time monitoring, and tested recovery procedures, the organisation risks delayed detection and extended service disruptions.",
+   suggestedOwner:"Viktor",annex:["A 5.24","A 5.25","A 5.26","A 8.15","A 8.16"],
+   originals:[
+    {id:"R-11",text:"Poor incident management and recovery coordination.",owner:"Viktor"},
+    {id:"R-13",text:"Risk of data loss or service disruptions if backups are not encrypted, securely stored, or if disaster recovery plans are insufficient or untested.",owner:"Viktor"},
+    {id:"R-14",text:"Inadequate crisis communication strategies during incidents.",owner:"Viktor"},
+    {id:"R-15",text:"No redundancy for key systems or data storage.",owner:"Viktor"},
+    {id:"R-100",text:"Risk of undetected breaches without effective monitoring tools.",owner:"Viktor"},
+    {id:"R-101",text:"Lack of a formal incident response plan.",owner:"Viktor"},
+    {id:"R-102",text:"Failure to detect or respond to active security incidents in real time.",owner:"Viktor"},
+    {id:"R-26",text:"Lack of automated alerts for detected anomalies.",owner:"Viktor"},
+    {id:"R-28",text:"Lack of formal Business Continuity Plans (BCP) and failure to define clear Recovery Time Objectives (RTO).",owner:"Viktor"},
+    {id:"R-34",text:"Power outage that affects power solutions for critical infrastructure.",owner:"Viktor"},
+  ]},
+  {id:"CR-4",cat:"monitoring",catLabel:"Monitoring & logging",stepClass:"c-monitoring",
+   title:"Insufficient monitoring, logging, and audit trail controls",
+   desc:"Incomplete or insecure event logging, lack of administrative activity tracking, and absence of regular security assessments limit incident detection and compliance demonstration.",
+   suggestedOwner:"Viktor",annex:["A 8.15","A 8.16","A 8.17"],
+   originals:[
+    {id:"R-99",text:"Failure to perform regular security assessments or penetration testing.",owner:"Viktor"},
+    {id:"R-104",text:"Failure to deactivate accounts for terminated employees or partners.",owner:"Viktor"},
+    {id:"R-105",text:"Inadequate logging of administrative activities.",owner:"Viktor"},
+    {id:"R-106",text:"Risk of incomplete event logging, limiting traceability of incidents.",owner:"Viktor"},
+    {id:"R-124",text:"Risk of log tampering if logs are not securely stored.",owner:"Viktor"},
+    {id:"R-90",text:"Failure to conduct regular ISMS audits or reviews.",owner:"Viktor"},
+  ]},
+  {id:"CR-5",cat:"access",catLabel:"Access & identity",stepClass:"c-access",
+   title:"Weak access control, identity management, and authentication",
+   desc:"Excessive permissions, weak authentication, poor session management, and inadequate provisioning/deprovisioning processes increase the risk of unauthorised access to critical systems.",
+   suggestedOwner:"Johan",annex:["A 5.15","A 5.16","A 5.18","A 8.2","A 8.3","A 8.5"],
+   originals:[
+    {id:"R-25",text:"Risk of unauthorized access if conditional access policies are not enforced.",owner:"Johan"},
+    {id:"R-24",text:"Risk of weak password policies (e.g., insufficient complexity, length).",owner:"Johan"},
+    {id:"R-54",text:"Risk of improper synchronization with identity management systems.",owner:"Johan"},
+    {id:"R-61",text:"Insufficient enforcement of least privilege access controls including subcontractors.",owner:"Johan"},
+    {id:"R-62",text:"Risk of session hijacking if user sessions are insecurely managed.",owner:"Johan"},
+    {id:"R-63",text:"Weak authentication mechanisms for critical systems.",owner:"Johan"},
+    {id:"R-64",text:"Inadequate controls over service accounts with high privileges.",owner:"Johan"},
+    {id:"R-65",text:"Failure to implement automated provisioning and deprovisioning processes.",owner:"Johan"},
+    {id:"R-66",text:"Excessive permissions granted to users beyond their job requirements.",owner:"Johan"},
+    {id:"R-103",text:"Failure to enforce MFA for privileged or remote access.",owner:"Johan"},
+    {id:"R-20",text:"Lack of formal user access management procedures.",owner:"Anton"},
+    {id:"R-42",text:"Shared user accounts without accountability or traceability.",owner:"Johan"},
+    {id:"R-48",text:"Risk of unauthorized access due to misaligned access control policies with OWASP guidelines.",owner:"Anton"},
+    {id:"R-49",text:"Failure to limit admin access to only necessary personnel.",owner:"Anton"},
+  ]},
+  {id:"CR-6",cat:"data",catLabel:"Data protection & privacy",stepClass:"c-data",
+   title:"Inadequate data protection, privacy controls, and GDPR compliance",
+   desc:"Failures in data classification, encryption, anonymisation, retention, and handling of data subject rights expose the organisation to regulatory penalties under GDPR and other applicable laws.",
+   suggestedOwner:"Johan",annex:["A 5.33","A 5.34","A 8.10","A 8.11","A 8.12","A 8.24"],
+   originals:[
+    {id:"R-22",text:"Failure to comply with GDPR data retention requirements.",owner:"Johan"},
+    {id:"R-29",text:"Data retention violations if data is not destroyed or returned at the end of a contract.",owner:"Viktor"},
+    {id:"R-47",text:"Risk of exposing sensitive data if anonymization or pseudonymization mechanisms are improperly implemented.",owner:"Anton"},
+    {id:"R-55",text:"Risk of inadequate information security practices without formalized policies, leading to regulatory violations (e.g., GDPR).",owner:"Johan"},
+    {id:"R-56",text:"Inadequate documentation of security policies and procedures.",owner:"Johan"},
+    {id:"R-57",text:"Lack of secure data storage for sensitive customer data.",owner:"Johan"},
+    {id:"R-58",text:"Failure to monitor unauthorized access to sensitive customer data.",owner:"Johan"},
+    {id:"R-59",text:"Failure to isolate customer data in multi-tenant environments.",owner:"Johan"},
+    {id:"R-60",text:"Failure to implement data portability mechanisms or enforce data cancellation requests.",owner:"Johan"},
+    {id:"R-67",text:"Unauthorized access to sensitive customer data by internal personnel.",owner:"Johan"},
+    {id:"R-68",text:"Failure to properly classify and protect sensitive or personal data.",owner:"Johan"},
+    {id:"R-69",text:"Inadequate procedures for managing data subject rights requests.",owner:"Johan"},
+    {id:"R-70",text:"Missing or insufficient privacy policies disclosed to data subjects.",owner:"Johan"},
+    {id:"R-71",text:"Failure to enforce right-to-erasure processes.",owner:"Johan"},
+    {id:"R-72",text:"Failure to appoint or define roles for a Data Protection Officer (DPO).",owner:"Johan"},
+    {id:"R-73",text:"Risk of improper handling of Subject Access Requests (SARs).",owner:"Johan"},
+    {id:"R-74",text:"Risk of non-compliance with data residency requirements if data centers/cloud services are outside legal jurisdictions (e.g., EEA), or if DPAs are not in place.",owner:"Johan"},
+    {id:"R-77",text:"Insufficient encryption for data at rest and in transit.",owner:"Viktor"},
+    {id:"R-107",text:"Risk of data leakage if real data is used in non-production environments.",owner:"Viktor"},
+    {id:"R-30",text:"Key elements of your solution, like custom code, source code, processes, or data-handling methods, are stolen or leaked.",owner:"Viktor"},
+  ]},
+  {id:"CR-7",cat:"comms",catLabel:"Communication security",stepClass:"c-comms",
+   title:"Insecure internal and external communications",
+   desc:"Failure to encrypt email and file transfers, secure VoIP/video conferencing, and protect internal communication channels increases the risk of interception and data leakage.",
+   suggestedOwner:"Viktor",annex:["A 8.23","A 8.24","A 8.26"],
+   originals:[
+    {id:"R-93",text:"Insecure email communication without encryption.",owner:"Viktor"},
+    {id:"R-94",text:"Failure to use secure channels for file transfers.",owner:"Viktor"},
+    {id:"R-122",text:"Inadequate protection of video conferencing or VoIP systems.",owner:"Viktor"},
+    {id:"R-123",text:"Failure to secure internal communication systems.",owner:"Viktor"},
+    {id:"R-19",text:"Miscommunication during data sharing between parties.",owner:"Anton"},
+  ]},
+  {id:"CR-8",cat:"human",catLabel:"Human & organisational",stepClass:"c-human",
+   title:"Human risk — threats, awareness, and personnel security",
+   desc:"Inadequate security training, social engineering attacks, BYOD risks, poor onboarding/offboarding, and insider threats present significant human-layer vulnerabilities.",
+   suggestedOwner:"Johan",annex:["A 6.1","A 6.3","A 6.4","A 6.5","A 6.8"],
+   originals:[
+    {id:"R-10",text:"Inadequate security awareness training for employees.",owner:"Johan"},
+    {id:"R-23",text:"Failure to enforce acceptable use policies for systems and data.",owner:"Johan"},
+    {id:"R-41",text:"Failure to regularly conduct background checks for employees handling sensitive data.",owner:"Johan"},
+    {id:"R-50",text:"Employees could deliberately or accidentally cause a data breach or steal sensitive company assets.",owner:"Anton"},
+    {id:"R-82",text:"Poor management of employee access to customer data.",owner:"Anton"},
+    {id:"R-92",text:"Poor security management during onboarding and offboarding.",owner:"Viktor"},
+    {id:"R-95",text:"Risk of unauthorized access or data leaks due to BYOD (Bring Your Own Device) policies.",owner:"Viktor"},
+    {id:"R-96",text:"Phishing attacks targeting employees.",owner:"Viktor"},
+    {id:"R-97",text:"Risk of ransomware attacks without adequate defenses.",owner:"Viktor"},
+    {id:"R-98",text:"Social engineering attacks (e.g., pretexting, baiting).",owner:"Viktor"},
+    {id:"R-8",text:"Insufficient management of remote workers' security practices.",owner:"Johan"},
+    {id:"R-116",text:"Staff in Ukraine are at direct risk due to the ongoing invasion, making staff more vulnerable to hacking, phishing, or ransomware attacks, potentially exposing sensitive data.",owner:"Andreas"},
+  ]},
+  {id:"CR-9",cat:"third",catLabel:"Third-party & supplier",stepClass:"c-third",
+   title:"Inadequate third-party, supplier, and subcontractor risk management",
+   desc:"Insufficient vetting, monitoring, and contractual controls over third parties and subcontractors — including uncertified cloud providers — may introduce compliance gaps and unaccountable access to sensitive systems.",
+   suggestedOwner:"Johan",annex:["A 5.19","A 5.20","A 5.21","A 5.22"],
+   originals:[
+    {id:"R-9",text:"Lack of control over third-party infrastructure or SLAs.",owner:"Johan"},
+    {id:"R-43",text:"Risk of non-compliance or security gaps of third-party vendors.",owner:"Johan"},
+    {id:"R-44",text:"Failure to include data protection clauses in third-party contracts.",owner:"Johan"},
+    {id:"R-45",text:"Lack of due diligence in vetting subcontractors.",owner:"Johan"},
+    {id:"R-46",text:"Unauthorized subcontractor access to sensitive systems.",owner:"Johan"},
+    {id:"R-76",text:"Non-compliance with industry standards if cloud services are uncertified.",owner:"Viktor"},
+    {id:"R-79",text:"Failure to conduct Data Protection Impact Assessments (DPIAs) for high-risk processing activities.",owner:"Johan"},
+    {id:"R-80",text:"Failure to notify affected parties in the event of a data breach.",owner:"Johan"},
+    {id:"R-81",text:"Insufficient monitoring of third-party access to sensitive systems.",owner:"Johan"},
+    {id:"R-114",text:"Use of non-GDPR compliant subcontractors.",owner:"William"},
+    {id:"R-115",text:"No accountability for subcontractor breaches.",owner:"Johan"},
+    {id:"R-83",text:"Risk of transferring sensitive data outside EU/EES due to consultants in Ukraine (conflict zone).",owner:"Andreas"},
+  ]},
+  {id:"CR-10",cat:"governance",catLabel:"Governance & ISMS",stepClass:"c-governance",
+   title:"Weak governance, ISMS structure, and security role definition",
+   desc:"Without a formal ISMS, clear security roles, senior management engagement, and regular framework reviews, the organisation lacks the governance foundation for effective information security.",
+   suggestedOwner:"Johan",annex:["A 5.1","A 5.2","A 5.4","A 5.36","A 6.2"],
+   originals:[
+    {id:"R-4",text:"Heavy reliance on individuals in unique roles creates significant risk if any key staff members are unavailable.",owner:"Johan"},
+    {id:"R-5",text:"Failure to align ISMS with business objectives, leading to inconsistent security practices.",owner:"Johan"},
+    {id:"R-7",text:"Risk of unclear accountability due to undefined security roles, leading to gaps in enforcement.",owner:"Johan"},
+    {id:"R-16",text:"Risk of outdated or ineffective security measures without regular reviews and alignment with industry standards (e.g., ISO 27001).",owner:"Johan"},
+    {id:"R-17",text:"Lack of a formal Information Security Management System (ISMS).",owner:"Johan"},
+    {id:"R-18",text:"Lack of disciplinary procedures for security violations.",owner:"Johan"},
+    {id:"R-27",text:"No formal change management process in development.",owner:"Viktor"},
+    {id:"R-38",text:"Failure to implement an effective risk management framework.",owner:"Johan"},
+    {id:"R-39",text:"Risk of poor engagement from senior management in ISMS initiatives.",owner:"Johan"},
+    {id:"R-40",text:"Lack of clear roles and responsibilities for security functions.",owner:"Johan"},
+    {id:"R-91",text:"Incomplete asset inventory leading to unmanaged security risks.",owner:"Viktor"},
+    {id:"R-1",text:"Appropriate contacts with interest groups are not maintained resulting in a lack of understanding of current threats.",owner:"Unassigned"},
+    {id:"R-2",text:"Appropriate contacts with interest groups are not maintained resulting in a lack of understanding of current threats.",owner:"Unassigned"},
+  ]},
+  {id:"CR-11",cat:"physical",catLabel:"Physical security",stepClass:"c-physical",
+   title:"Inadequate physical security and environmental controls",
+   desc:"Failures in physical access controls, environmental monitoring, device security, and media handling at offices and data centres can enable unauthorised physical access and damage to critical infrastructure.",
+   suggestedOwner:"Andreas",annex:["A 7.1","A 7.2","A 7.4","A 7.5","A 7.8","A 7.11","A 7.13","A 7.14"],
+   originals:[
+    {id:"R-21",text:"Inadequate surveillance (CCTV) or monitoring in sensitive areas.",owner:"Anton"},
+    {id:"R-51",text:"Inadequate physical security controls (e.g., badge systems, surveillance) at data centers or offices.",owner:"Anton"},
+    {id:"R-52",text:"No controlled access to server rooms or data storage facilities.",owner:"Anton"},
+    {id:"R-53",text:"Stolen devices may grant unauthorized individuals access to cloud services or systems if proper security measures like MFA or device encryption are not in place.",owner:"Anton"},
+    {id:"R-84",text:"Insufficient protection of building perimeters against unauthorized personnel.",owner:"Andreas"},
+    {id:"R-85",text:"Weak handling of physical backups or removable storage.",owner:"Andreas"},
+    {id:"R-86",text:"Lack of visitor management systems to track access to sensitive areas.",owner:"Andreas"},
+    {id:"R-87",text:"Poor handling of physical media during transport (e.g., USB drives, backups).",owner:"Andreas"},
+    {id:"R-88",text:"Failure to secure network cabinets and cabling infrastructure.",owner:"Andreas"},
+    {id:"R-89",text:"Improper disposal of damaged or outdated equipment may result in sensitive data being recovered by malicious actors.",owner:"Andreas"},
+    {id:"R-117",text:"Failure to provide data access logs when requested by regulators or customers.",owner:"Andreas"},
+    {id:"R-118",text:"Inadequate protection against environmental disasters (e.g., floods, fire).",owner:"Andreas"},
+    {id:"R-119",text:"Failure to implement environmental controls in critical areas (e.g., temperature, humidity).",owner:"Andreas"},
+    {id:"R-120",text:"Inadequate fire detection and suppression systems.",owner:"Andreas"},
+  ]},
+  {id:"CR-12",cat:"ops",catLabel:"Operational security",stepClass:"c-ops",
+   title:"Operational security gaps — audits, consent, and malware defence",
+   desc:"Weak operational practices including inadequate auditing, failure to manage cookie/consent compliance, poor threat intelligence engagement, and absence of malware controls create exploitable gaps.",
+   suggestedOwner:"Unassigned",annex:["A 5.7","A 8.7","A 8.19"],
+   originals:[
+    {id:"R-78",text:"Inadequate operational security audits.",owner:"William"},
+    {id:"R-121",text:"Unauthorized data collection or cookie usage without user consent.",owner:"Viktor"},
+    {id:"R-3",text:"Company data is breached, corrupted or made unavailable due to a malware attack.",owner:"Unassigned"},
+  ]},
+];
+
+function renderStats(data){
+  const total=data.reduce((s,r)=>s+r.originals.length,0);
+  const owners=[...new Set(data.flatMap(r=>r.originals.map(o=>o.owner)))].filter(o=>o!=="Unassigned").length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card"><div class="stat-num">${data.length}</div><div class="stat-lbl">Consolidated risks</div></div>
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-lbl">Original risks</div></div>
+    <div class="stat-card"><div class="stat-num">${owners}</div><div class="stat-lbl">Named owners</div></div>
+  `;
+}
+
+function renderFilters(){
+  const bar=document.getElementById('filter-bar');
+  bar.innerHTML=`<button class="filter-btn active" onclick="setFilter('all',this)">ALL</button>`;
+  risks.forEach(r=>{
+    bar.innerHTML+=`<button class="filter-btn" onclick="setFilter('${r.cat}',this)">${r.catLabel.toUpperCase()}</button>`;
+  });
+}
+
+function renderRisks(data){
+  renderStats(data);
+  const list=document.getElementById('risk-list');
+  list.innerHTML='';
+  data.forEach(r=>{
+    const annexHtml=r.annex.map(a=>`<span class="annex-tag">${a}</span>`).join('');
+    const originalsHtml=r.originals.map(o=>`
+      <tr>
+        <td>${o.id}</td>
+        <td>${o.text}</td>
+        <td><span class="owner-chip chip-${o.owner}">${o.owner}</span></td>
+      </tr>
+    `).join('');
+    const el=document.createElement('div');
+    el.className='section';
+    el.dataset.cat=r.cat;
+    el.innerHTML=`
+      <div class="section-header" onclick="toggle(this)">
+        <span class="step-num ${r.stepClass}">${r.id}</span>
+        <h2>${r.title}</h2>
+        <div class="header-meta">
+          <span class="count-pill">${r.originals.length} risks</span>
+          <span class="chevron">›</span>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="owner-row">
+          <span class="owner-lbl">Suggested owner —</span>
+          <span class="owner-val ov-${r.suggestedOwner}">${r.suggestedOwner}</span>
+          <span style="flex:1"></span>
+          <div class="annex-row">${annexHtml}</div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-dim);">${r.desc}</p>
+        <div>
+          <div class="originals-lbl">Original risks mapped</div>
+          <table class="orig-table">
+            <thead><tr><th>ID</th><th>Risk</th><th>Owner</th></tr></thead>
+            <tbody>${originalsHtml}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+}
+
+function toggle(header){
+  const body=header.nextElementSibling;
+  const chev=header.querySelector('.chevron');
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function setFilter(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRisks(cat==='all'?risks:risks.filter(r=>r.cat===cat));
+}
+
+renderFilters();
+renderRisks(risks);
+</script>
