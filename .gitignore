@@ -11,3 +11,5 @@
 # Backup files
 *.bak
 *.tmp
+
+.env
