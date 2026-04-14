@@ -10,14 +10,14 @@
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
         :root {
-            --bg: #0a0e14;
-            --bg2: #0f1520;
-            --bg3: #141c2b;
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --bg3: #1c2230;
             --border: #1e2d45;
             --border-bright: #2a4060;
-            --text: #c8d8e8;
-            --text-dim: #5a7a9a;
-            --text-muted: #3a5070;
+            --text: #dce8f5;
+            --text-dim: #7a9ab8;
+            --text-muted: #4a6a8a;
             --blue: #4d9fff;
             --blue-dim: #1a3a5c;
             --green: #3ddc84;
@@ -45,6 +45,7 @@
             color: var(--text);
             padding: 40px 24px;
             line-height: 1.6;
+            font-size: 16px;
         }
 
         .header {
@@ -64,7 +65,7 @@
         }
 
         .header h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: #e8f4ff;
             line-height: 1.2;
@@ -101,7 +102,7 @@
 
         .stat-num {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: #e8f4ff;
         }
@@ -124,7 +125,7 @@
 
         .filter-btn {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.62rem;
+            font-size: 0.68rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             border: 1px solid var(--border-bright);
@@ -229,7 +230,7 @@
         }
 
         .section-header h2 {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
             color: #e8f4ff;
             flex: 1;
@@ -358,12 +359,12 @@
         .orig-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.78rem;
+            font-size: 0.88rem;
         }
 
         .orig-table th {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-muted);
@@ -731,7 +732,7 @@
           <span style="flex:1"></span>
           <div class="annex-row">${annexHtml}</div>
         </div>
-        <p style="font-size:0.82rem;color:var(--text-dim);">${r.desc}</p>
+            <p style="font-size:0.92rem;color:var(--text-dim);">${r.desc}</p>
         <div>
           <div class="originals-lbl">Original risks mapped</div>
           <table class="orig-table">

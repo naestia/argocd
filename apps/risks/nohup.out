@@ -1,0 +1,7 @@
+Forwarding from 0.0.0.0:8081 -> 80
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+E0414 12:13:13.166340   39937 portforward.go:404] "Unhandled Error" err="error copying from local connection to remote stream: writeto tcp4 10.10.10.12:8081->10.10.10.27:61440: read tcp4 10.10.10.12:8081->10.10.10.27:61440: read: connection reset by peer"
+E0414 12:13:13.166774   39937 portforward.go:404] "Unhandled Error" err="error copying from local connection to remote stream: writeto tcp4 10.10.10.12:8081->10.10.10.27:61439: read tcp4 10.10.10.12:8081->10.10.10.27:61439: read: connection reset by peer"
