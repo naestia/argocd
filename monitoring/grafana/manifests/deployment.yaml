@@ -29,6 +29,9 @@ spec:
             secretKeyRef:
               name: grafana-secrets
               key: admin-password
+        env:
+        - name: GF_INSTALL_PLUGINS
+          value: "grafana-lokiexplore-app"
         volumeMounts:
         - name: grafana-storage
           mountPath: /var/lib/grafana
