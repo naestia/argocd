@@ -37,7 +37,7 @@ data:
         action        = "replace"
         target_label  = "__path__"
         regex         = "(.+);(.+);(.+);(.+)"
-        replacement   = "/var/log/pods/${1}_${2}_${3}/${4}/*.log"
+        replacement   = "/var/log/pods/${1}_${2}_${3}/${4}/0.log"
         separator     = ";"
       }
     }
