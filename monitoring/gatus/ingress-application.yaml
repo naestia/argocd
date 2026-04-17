@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/naestia/gitops-local
+    repoURL: https://github.com/naestia/argocd
     targetRevision: HEAD
     path: monitoring/gatus/manifests
   destination:
