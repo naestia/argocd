@@ -10,8 +10,16 @@ spec:
     chart: oneuptime
     targetRevision: 10.0.65
     helm:
-      valueFiles:
-        - values.yaml
+      values: |
+        nginx:
+          service:
+            type: ClusterIP
+        postgresql:
+          enabled: true
+        redis:
+          enabled: true
+        clickhouse:
+          enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: oneuptime
