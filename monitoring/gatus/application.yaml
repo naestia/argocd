@@ -32,10 +32,9 @@ spec:
           enabled: true
           ingressClassName: nginx
           hosts:
-            - host: gatus.local
-              paths:
-                - path: /
-                  pathType: Prefix
+            - gatus.local
+          paths:
+            - /
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
