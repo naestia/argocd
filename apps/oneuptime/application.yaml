@@ -19,7 +19,19 @@ spec:
         redis:
           enabled: true
         clickhouse:
-          enabled: true
+          enabled: false
+        keda:
+          enabled: false
+        home:
+          enabled: false
+        aiAgent:
+          enabled: false
+        billing:
+          enabled: false
+        captcha:
+          enabled: false
+        probe:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: oneuptime
