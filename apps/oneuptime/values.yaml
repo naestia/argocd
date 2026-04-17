@@ -1,5 +1,9 @@
 host: oneuptime.local
 
+nginx:
+  service:
+    type: ClusterIP
+
 postgresql:
   enabled: true
 
