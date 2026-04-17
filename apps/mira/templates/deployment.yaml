@@ -15,16 +15,6 @@ spec:
       labels:
         app: mira
     spec:
-      initContainers:
-      - name: migrate
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        command: ["node_modules/.bin/prisma", "migrate", "deploy"]
-        env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: {{ .Values.secrets.dbCredentials }}
-              key: DATABASE_URL
       containers:
       - name: mira
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
