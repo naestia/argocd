@@ -29,12 +29,7 @@ spec:
           type: ClusterIP
           port: 8080
         ingress:
-          enabled: true
-          ingressClassName: nginx
-          hosts:
-            - gatus.local
-          paths:
-            - /
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
