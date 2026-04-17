@@ -1,4 +1,8 @@
 namespace: mira-dev
+image:
+  repository: ghcr.io/naestia/mira
+  tag: develop
+  pullPolicy: Always
 ingress:
   host: mira-dev.local
 env:
