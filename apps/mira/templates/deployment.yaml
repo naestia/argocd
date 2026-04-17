@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mira
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: mira
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: mira
+  template:
+    metadata:
+      labels:
+        app: mira
+    spec:
+      initContainers:
+      - name: migrate
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        command: ["node_modules/.bin/prisma", "migrate", "deploy"]
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: DATABASE_URL
+      containers:
+      - name: mira
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: DATABASE_URL
+        - name: POSTGRES_HOST
+          value: {{ .Values.env.POSTGRES_HOST }}
+        - name: POSTGRES_PORT
+          value: {{ .Values.env.POSTGRES_PORT | quote }}
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.dbCredentials }}
+              key: POSTGRES_PASSWORD
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secrets.authSecrets }}
+              key: NEXTAUTH_SECRET
+        - name: NEXTAUTH_URL
+          value: {{ .Values.env.NEXTAUTH_URL }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}

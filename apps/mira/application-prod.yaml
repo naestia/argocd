@@ -8,7 +8,10 @@ spec:
   source:
     repoURL: https://github.com/naestia/argocd
     targetRevision: HEAD
-    path: apps/mira/manifests
+    path: apps/mira
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: mira

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mira-beta
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/naestia/argocd
+    targetRevision: HEAD
+    path: apps/mira
+    helm:
+      valueFiles:
+        - values-beta.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mira-beta
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,11 @@
+namespace: mira-dev
+ingress:
+  host: mira-dev.local
+env:
+  NEXTAUTH_URL: "http://mira-dev.local"
+  POSTGRES_HOST: postgres.postgres.svc.cluster.local
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: mira_dev
+secrets:
+  dbCredentials: mira-db-credentials
+  authSecrets: mira-secrets

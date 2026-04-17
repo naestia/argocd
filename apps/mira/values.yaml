@@ -1,0 +1,23 @@
+replicaCount: 1
+namespace: mira
+image:
+  repository: ghcr.io/naestia/mira
+  tag: latest
+  pullPolicy: Always
+ingress:
+  host: mira.local
+env:
+  NEXTAUTH_URL: "http://mira.local"
+  POSTGRES_HOST: postgres.postgres.svc.cluster.local
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: mira
+secrets:
+  dbCredentials: mira-db-credentials
+  authSecrets: mira-secrets
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
