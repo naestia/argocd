@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oneuptime
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://helm-chart.oneuptime.com/
+    chart: oneuptime
+    targetRevision: latest
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: oneuptime
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

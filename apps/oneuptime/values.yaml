@@ -1,0 +1,10 @@
+host: oneuptime.local
+
+postgresql:
+  enabled: true
+
+redis:
+  enabled: true
+
+clickhouse:
+  enabled: true
