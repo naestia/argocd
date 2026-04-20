@@ -16,7 +16,7 @@ spec:
             - name: ghcr
               prefix: ghcr.io
               api_url: https://ghcr.io
-              credentials: secret:argocd/ghcr-credentials#token
+              credentials: pullsecret:argocd/ghcr-credentials
               default: true
   destination:
     server: https://kubernetes.default.svc
