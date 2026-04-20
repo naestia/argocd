@@ -1,7 +1,7 @@
 namespace: mira-dev
 image:
   repository: ghcr.io/naestia/mira
-  tag: sha-e6b5e97
+  tag: develop
   pullPolicy: Always
 ingress:
   host: mira-dev.local

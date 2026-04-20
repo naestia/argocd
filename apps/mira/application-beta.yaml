@@ -3,13 +3,6 @@ kind: Application
 metadata:
   name: mira-beta
   namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: mira=ghcr.io/naestia/mira
-    argocd-image-updater.argoproj.io/mira.update-strategy: semver
-    argocd-image-updater.argoproj.io/mira.allow-tags: regexp:^[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/write-back-target: helmvalues:apps/mira/values-beta.yaml
 spec:
   project: default
   source:
