@@ -1,7 +1,7 @@
 namespace: mira-beta
 image:
   repository: ghcr.io/naestia/mira
-  tag: 0.2.0-beta.1
+  tag: 0.1.0-beta.9
   pullPolicy: Always
 ingress:
   host: mira-beta.local
