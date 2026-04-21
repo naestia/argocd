@@ -2,7 +2,7 @@ replicaCount: 1
 namespace: mira
 image:
   repository: ghcr.io/naestia/mira
-  tag: latest
+  tag: 0.2.0
   pullPolicy: Always
 ingress:
   host: mira.local
