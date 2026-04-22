@@ -13,13 +13,12 @@ spec:
       values: |
         postgresql:
           enabled: false
-        externalPostgresql:
-          host: postgres.postgres.svc.cluster.local
-          port: 5432
-          database: wikijs
-          username: postgres
-          existingSecret: wikijs-db-secret
-          existingSecretKey: password
+          postgresqlHost: postgres.postgres.svc.cluster.local
+          postgresqlPort: 5432
+          postgresqlDatabase: wikijs
+          postgresqlUsername: postgres
+          existingSecret: wikijs
+          existingSecretKey: postgresql-password
         ingress:
           enabled: true
           ingressClassName: nginx
