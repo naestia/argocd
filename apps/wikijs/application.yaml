@@ -12,15 +12,9 @@ spec:
     helm:
       values: |
         postgresql:
-          enabled: true
-          postgresqlHost: postgres.postgres.svc.cluster.local
-          postgresqlPort: 5432
-          postgresqlUser: postgres
-          postgresqlDatabase: wikijs
-          existingSecret: wikijs
-          existingSecretKey: postgresql-password
-          persistence:
-            enabled: false
+          enabled: false
+        externalPostgresql:
+          databaseURL: postgresql://postgres:yourpassword@postgres.postgres.svc.cluster.local:5432/wikijs
         ingress:
           enabled: true
           ingressClassName: nginx
