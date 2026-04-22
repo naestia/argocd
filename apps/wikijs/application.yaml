@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wikijs
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.js.wiki
+    chart: wiki
+    targetRevision: 2.2.20
+    helm:
+      values: |
+        postgresql:
+          enabled: false
+        externalPostgresql:
+          host: postgres.postgres.svc.cluster.local
+          port: 5432
+          database: wikijs
+          username: postgres
+          existingSecret: wikijs-db-secret
+          existingSecretKey: password
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hosts:
+            - host: wikijs.local
+              paths:
+                - path: /
+                  pathType: Prefix
+        service:
+          type: ClusterIP
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: wikijs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
