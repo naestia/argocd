@@ -1,0 +1,36 @@
+config:
+  issuer: http://dex.local
+
+  storage:
+    type: memory
+
+  web:
+    http: 0.0.0.0:5556
+
+  staticClients:
+    - id: outline
+      redirectURIs:
+        - http://outline.local/auth/oidc.callback
+      name: Outline
+      secret: outline-dex-secret
+
+  staticPasswords:
+    - email: admin@upptec.com
+      hash: "$2y$10$488bCqqgDa2eBms9WBsOkeKScAsDdtoeCmSxtSrM6LWg0WXV6ALta"
+      username: admin
+      userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: dex.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 5556

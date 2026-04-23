@@ -56,6 +56,22 @@ spec:
           value: /var/lib/outline/data
         - name: PGSSLMODE
           value: disable
+        - name: OIDC_CLIENT_ID
+          value: outline
+        - name: OIDC_CLIENT_SECRET
+          value: outline-dex-secret
+        - name: OIDC_AUTH_URI
+          value: http://dex.local/auth
+        - name: OIDC_TOKEN_URI
+          value: http://dex.svc.cluster.local:5556/token
+        - name: OIDC_USERINFO_URI
+          value: http://dex.svc.cluster.local:5556/userinfo
+        - name: OIDC_USERNAME_CLAIM
+          value: email
+        - name: OIDC_DISPLAY_NAME
+          value: Dex
+        - name: OIDC_SCOPES
+          value: openid profile email
         resources:
           requests:
             memory: "256Mi"
