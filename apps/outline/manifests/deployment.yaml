@@ -36,6 +36,16 @@ spec:
             secretKeyRef:
               name: outline-secrets
               key: utils-secret
+        - name: GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: outline-secrets
+              key: github-client-id
+        - name: GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: outline-secrets
+              key: github-client-secret
         - name: URL
           value: http://outline.local
         - name: PORT
