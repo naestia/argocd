@@ -41,7 +41,7 @@ spec:
         - name: SECURE_COOKIES
           value: "false"
         - name: URL
-          value: http://outline.local
+          value: http://outline.upptec.local
         - name: PORT
           value: "3000"
         - name: FILE_STORAGE
