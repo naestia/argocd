@@ -16,12 +16,11 @@ externalPostgresql:
 
 redis:
   enabled: false
-  auth:
-    password: "placeholder"
 
 externalRedis:
   host: outline-redis
   port: 6379
+  password: "placeholder"
 
 fileStorage:
   mode: local
