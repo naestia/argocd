@@ -12,7 +12,7 @@ config:
   staticClients:
     - id: outline
       redirectURIs:
-        - http://outline.local/auth/oidc.callback
+        - http://outline.upptec.local/auth/oidc.callback
       name: Outline
       secret: outline-dex-secret
 
