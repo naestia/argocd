@@ -1,0 +1,43 @@
+replicaCount: 1
+
+outline:
+  generateEncryptionKeys: false
+
+secretKey: ""
+utilsSecret: ""
+
+postgresql:
+  enabled: false
+  externalHost: postgres.postgres.svc.cluster.local
+  externalPort: 5432
+  auth:
+    username: postgres
+    database: outline
+    existingSecret: outline-secrets
+    secretKeys:
+      adminPasswordKey: postgresql-password
+      userPasswordKey: postgresql-password
+
+redis:
+  enabled: true
+  auth:
+    enabled: false
+
+fileStorage:
+  mode: local
+  local:
+    persistence:
+      enabled: true
+      size: 5Gi
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: outline.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+service:
+  type: ClusterIP
