@@ -16,6 +16,8 @@ externalPostgresql:
 
 redis:
   enabled: false
+  auth:
+    password: "placeholder"
 
 externalRedis:
   host: outline-redis
