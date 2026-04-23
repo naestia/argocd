@@ -36,16 +36,6 @@ spec:
             secretKeyRef:
               name: outline-secrets
               key: utils-secret
-        - name: GITHUB_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: outline-secrets
-              key: github-client-id
-        - name: GITHUB_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: outline-secrets
-              key: github-client-secret
         - name: FORCE_HTTPS
           value: "false"
         - name: SECURE_COOKIES
