@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: outline.local
+  - host: outline.upptec.local
     http:
       paths:
       - path: /
