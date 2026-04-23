@@ -5,16 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - repoURL: https://community-charts.github.io/helm-charts
-      chart: outline
-      targetRevision: 0.1.0
-      helm:
-        valueFiles:
-          - $values/apps/outline/values.yaml
-    - repoURL: https://github.com/naestia/argocd
-      targetRevision: HEAD
-      ref: values
+  source:
+    repoURL: https://github.com/naestia/argocd
+    targetRevision: HEAD
+    path: apps/outline/manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: outline

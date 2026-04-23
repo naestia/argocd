@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline
+  namespace: outline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: outline
+  template:
+    metadata:
+      labels:
+        app: outline
+    spec:
+      containers:
+      - name: outline
+        image: outlinewiki/outline:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: outline-secrets
+              key: database-url
+        - name: REDIS_URL
+          value: redis://outline-redis:6379
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: outline-secrets
+              key: secret-key
+        - name: UTILS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: outline-secrets
+              key: utils-secret
+        - name: URL
+          value: http://outline.local
+        - name: PORT
+          value: "3000"
+        - name: FILE_STORAGE
+          value: local
+        - name: FILE_STORAGE_LOCAL_ROOT_DIR
+          value: /var/lib/outline/data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: outline-data
+          mountPath: /var/lib/outline/data
+      volumes:
+      - name: outline-data
+        persistentVolumeClaim:
+          claimName: outline-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: outline-data
+  namespace: outline
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
