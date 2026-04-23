@@ -11,6 +11,7 @@ externalPostgresql:
   port: 5432
   username: postgres
   database: outline
+  password: "placeholder"
   existingSecret: outline-secrets
   passwordSecretKey: postgresql-password
 
