@@ -15,13 +15,11 @@ externalPostgresql:
   existingSecret: outline-secrets
 
 redis:
-  enabled: true
-  auth:
-    enabled: false
-  image:
-    repository: redis
-    tag: 7-alpine
-    registry: docker.io
+  enabled: false
+
+externalRedis:
+  host: outline-redis
+  port: 6379
 
 fileStorage:
   mode: local
