@@ -57,9 +57,9 @@ spec:
         - name: OIDC_AUTH_URI
           value: http://dex.local/auth
         - name: OIDC_TOKEN_URI
-          value: http://dex.svc.cluster.local:5556/token
+          value: http://dex.dex.svc.cluster.local:5556/token
         - name: OIDC_USERINFO_URI
-          value: http://dex.svc.cluster.local:5556/userinfo
+          value: http://dex.dex.svc.cluster.local:5556/userinfo
         - name: OIDC_USERNAME_CLAIM
           value: email
         - name: OIDC_DISPLAY_NAME
