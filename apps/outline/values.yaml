@@ -21,7 +21,7 @@ externalPostgresql:
   database: outline
   password: "placeholder"
   existingSecret: outline-secrets
-  passwordSecretKey: postgresql-password
+  secretKey: postgresql-password
 
 redis:
   enabled: true
