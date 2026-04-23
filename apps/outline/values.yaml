@@ -3,14 +3,6 @@ replicaCount: 1
 secretKey: "placeholder"
 utilsSecret: "placeholder"
 
-secretKeyExternalSecret:
-  name: outline-secrets
-  key: secret-key
-
-utilsSecretExternalSecret:
-  name: outline-secrets
-  key: utils-secret
-
 postgresql:
   enabled: false
 
@@ -21,7 +13,6 @@ externalPostgresql:
   database: outline
   password: "placeholder"
   existingSecret: outline-secrets
-  secretKey: postgresql-password
 
 redis:
   enabled: true
