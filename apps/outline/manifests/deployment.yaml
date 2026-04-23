@@ -48,6 +48,8 @@ spec:
               key: github-client-secret
         - name: FORCE_HTTPS
           value: "false"
+        - name: SECURE_COOKIES
+          value: "false"
         - name: URL
           value: http://outline.local
         - name: PORT
