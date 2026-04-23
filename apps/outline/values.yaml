@@ -33,7 +33,7 @@ ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: outline.local
+    - host: outline.upptec.local
       paths:
         - path: /
           pathType: ImplementationSpecific
