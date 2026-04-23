@@ -44,6 +44,8 @@ spec:
           value: local
         - name: FILE_STORAGE_LOCAL_ROOT_DIR
           value: /var/lib/outline/data
+        - name: PGSSLMODE
+          value: disable
         resources:
           requests:
             memory: "256Mi"
