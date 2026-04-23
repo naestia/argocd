@@ -1,8 +1,5 @@
 replicaCount: 1
 
-outline:
-  generateEncryptionKeys: false
-
 secretKey: ""
 utilsSecret: ""
 
