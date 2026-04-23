@@ -1,7 +1,15 @@
 replicaCount: 1
 
-secretKey: ""
-utilsSecret: ""
+secretKey: "placeholder"
+utilsSecret: "placeholder"
+
+secretKeyExternalSecret:
+  name: outline-secrets
+  key: secret-key
+
+utilsSecretExternalSecret:
+  name: outline-secrets
+  key: utils-secret
 
 postgresql:
   enabled: false
