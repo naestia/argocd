@@ -14,7 +14,8 @@ spec:
         postgresql:
           enabled: false
         externalPostgresql:
-          databaseURL: postgresql://postgres:yourpassword@postgres.postgres.svc.cluster.local:5432/wikijs
+          existingSecret: wikijs-db-url
+          existingSecretKey: databaseURL
         ingress:
           enabled: true
           ingressClassName: nginx
