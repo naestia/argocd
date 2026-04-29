@@ -41,6 +41,8 @@ spec:
           value: minio-artifact-secret
         - name: artifactRepository.s3.secretKeySecret.key
           value: secretKey
+        - name: server.extraArgs[0]
+          value: --secure=false
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-workflows
