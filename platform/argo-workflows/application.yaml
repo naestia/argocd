@@ -19,7 +19,7 @@ spec:
           value: argo-workflow
         - name: workflow.rbac.create
           value: "true"
-        - name: controller.workflowNamespaces
+        - name: controller.workflowNamespaces[0]
           value: argo-workflows
         - name: server.enabled
           value: "true"
