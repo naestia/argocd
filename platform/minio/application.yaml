@@ -17,6 +17,8 @@ spec:
           value: standalone
         - name: persistence.enabled
           value: "true"
+        - name: existingSecret
+          value: minio-credentials
         - name: persistence.size
           value: 20Gi
         - name: buckets[0].name
