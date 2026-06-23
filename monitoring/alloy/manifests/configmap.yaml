@@ -12,6 +12,13 @@ data:
     discovery.relabel "pods" {
       targets = discovery.kubernetes.pods.targets
 
+      // Drop kube-system pods to avoid errors with static pod logs
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        regex         = "kube-system"
+        action        = "drop"
+      }
+
       rule {
         source_labels = ["__meta_kubernetes_namespace"]
         target_label  = "namespace"
