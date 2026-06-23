@@ -1,7 +1,7 @@
 .PHONY: help install connect apply status sync clean
 
-CLUSTER_IP ?= 192.168.1.100
-GITHUB_USER ?=
+CLUSTER_IP ?= 127.0.0.1
+GITHUB_USER ?= naestia
 
 help: ## Show this help message
 	@echo "Local GitOps Makefile"
@@ -29,7 +29,7 @@ connect: ## Connect ArgoCD to GitHub repo
 	@echo "Connecting to ArgoCD..."
 	argocd login $(CLUSTER_IP):8080 --insecure
 	@echo "Adding repository..."
-	argocd repo add https://github.com/$(GITHUB_USER)/gitops-local
+	argocd repo add https://github.com/$(GITHUB_USER)/argocd
 	argocd repo list
 
 apply: ## Apply the root Application
