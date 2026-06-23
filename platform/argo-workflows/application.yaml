@@ -7,42 +7,16 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
-  source:
-    repoURL: https://argoproj.github.io/argo-helm
-    chart: argo-workflows
-    targetRevision: 0.41.0
-    helm:
-      parameters:
-        - name: workflow.serviceAccount.create
-          value: "true"
-        - name: workflow.serviceAccount.name
-          value: argo-workflow
-        - name: workflow.rbac.create
-          value: "true"
-        - name: controller.workflowNamespaces[0]
-          value: argo-workflows
-        - name: server.enabled
-          value: "true"
-        - name: server.authModes[0]
-          value: server
-        - name: artifactRepository.archiveLogs
-          value: "true"
-        - name: artifactRepository.s3.bucket
-          value: argo-artifacts
-        - name: artifactRepository.s3.endpoint
-          value: minio.minio.svc.cluster.local:9000
-        - name: artifactRepository.s3.insecure
-          value: "true"
-        - name: artifactRepository.s3.accessKeySecret.name
-          value: minio-artifact-secret
-        - name: artifactRepository.s3.accessKeySecret.key
-          value: accessKey
-        - name: artifactRepository.s3.secretKeySecret.name
-          value: minio-artifact-secret
-        - name: artifactRepository.s3.secretKeySecret.key
-          value: secretKey
-        - name: server.extraArgs[0]
-          value: --secure=false
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-workflows
+      targetRevision: 0.41.0
+      helm:
+        valueFiles:
+          - $values/platform/argo-workflows/manifests/values.yaml
+    - repoURL: https://github.com/naestia/argocd
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-workflows
